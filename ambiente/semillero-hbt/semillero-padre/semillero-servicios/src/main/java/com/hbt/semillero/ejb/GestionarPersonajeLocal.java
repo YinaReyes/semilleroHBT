@@ -1,13 +1,19 @@
 package com.hbt.semillero.ejb;
 
+import java.util.List;
+
+import com.hbt.semillero.dto.PersonajeDTO;
+
 public interface GestionarPersonajeLocal {
 	
-	public void CrearInfoPersonaje();
+	public void crearInfoPersonaje(PersonajeDTO personajeDTO);
 	
-	public void ModificarInfoPersonaje();
+	public void modificarInfoPersonaje();
 	
-	public void EliminarInfoPersonaje();
+	public void eliminarInfoPersonaje();
 	
-	public void ConsultarInfoPersonaje();
+	public List<PersonajeDTO> consultarInfoPersonaje();
+	
+	public List<PersonajeDTO> consultarInfoPersonaje(Long idComic);
 
 }
