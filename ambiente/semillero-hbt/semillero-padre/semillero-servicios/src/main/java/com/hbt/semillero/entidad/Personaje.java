@@ -28,7 +28,7 @@ public class Personaje implements Serializable{
 	@Column(name = "PERS_NOMBRE")
 	private String nombre;
 	
-	@ManyToOne (fetch = FetchType.LAZY)
+	@ManyToOne 
 	@JoinColumn(name = "PERS_ID_COMIC")
 	private Comic comic;
 	

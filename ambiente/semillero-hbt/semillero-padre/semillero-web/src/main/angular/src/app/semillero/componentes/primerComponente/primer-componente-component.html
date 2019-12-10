@@ -1,3 +1,19 @@
 Yina Paola Reyes Polo - Montería
 <br>
 {{ nombres }}
+
+<pre> {{ listaJSON }}</pre>
+
+<button type="button" class="btn btn-danger" (click)="eliminarComic(3)" >Eliminar comic </button>
+<br>
+<div *ngIf="mostrarMensaje"> {{ mensaje }} </div>
+<div *ngIf="mostrarMensajeError"> El comic ha sido eliminado! </div>
+<br>
+<div class="container">
+    <h3>Lista de Personajes</h3>
+    <ul>
+        <li *ngFor="let comic of lista; let i = index" class="list-group-item">
+            {{ i+1 }}.{{ comic.nombre }}
+        </li>
+    </ul>
+</div>

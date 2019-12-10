@@ -1,11 +1,18 @@
 package com.hbt.semillero.ejb;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.Logger;
 
+import com.hbt.semillero.dto.PersonajeDTO;
 import com.hbt.semillero.dto.RolDTO;
+import com.hbt.semillero.entidad.Personaje;
 import com.hbt.semillero.entidad.Rol;
 
 /**
@@ -27,10 +34,11 @@ public class GestionarRolBean implements IGestionarRolLocal {
 	 * Metodo que permite crear un Rol
 	 * @author YINAREYES
 	 */
-	public void crearRol() {
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void crearRol(RolDTO rolDTO) {
 		logger.debug("Se ha iniciado el metodo CrearRol ");
-		//Rol rol = convertirDTOEntidad(rolDTO);
-		//entityManager.persist(rol);
+		Rol rol = convertirDTOEntidad(rolDTO);
+		entityManager.persist(rol);
 		logger.debug("Se ha finalizado el metodo CrearRol ");
 	}
 	
@@ -39,6 +47,7 @@ public class GestionarRolBean implements IGestionarRolLocal {
 	 * @author YINAREYES
 	 */
 	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void modificarRol() {
 		logger.debug("Se ha iniciado el metodo ModificarRol ");
 		logger.debug("Se ha finalizado el metodo ModificarRol ");	
@@ -49,6 +58,7 @@ public class GestionarRolBean implements IGestionarRolLocal {
 	 * @author YINAREYES
 	 */
 	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void eliminarRol() {
 		logger.debug("Se ha iniciado el metodo EliminarRol ");
 		logger.debug("Se ha finalizado el metodo EliminarRol ");
@@ -58,9 +68,23 @@ public class GestionarRolBean implements IGestionarRolLocal {
 	 * Metodo que permite consultar un rol registrado
 	 * @author YINAREYES
 	 */
-	public void consultarRol() {
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public List <RolDTO> consultarRol() {
 		logger.debug("Se ha iniciado el metodo consultarRol ");
+		String query = "SELECT rol" 
+				+ "FROM Rol rol";
+	
+		List<Rol> listaRoles = entityManager.createQuery(query).getResultList(); 
+		List<RolDTO> listaRolesDTO = new ArrayList();
+		
+		for (Rol rol : listaRoles) {
+			listaRolesDTO.add(convertirEntidadDTO(rol));
+			
+		}
 		logger.debug("Se ha finalizado el metodo consultarRol ");
+		
+		return listaRolesDTO;
 	}
 	
 	/**

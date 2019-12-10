@@ -6,6 +6,8 @@ package com.hbt.semillero.ejb;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -29,7 +31,7 @@ public class GestionarPersonajeBean implements GestionarPersonajeLocal{
 	
 	final static Logger logger = Logger.getLogger(GestionarPersonajeBean.class);
 	
-	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void crearInfoPersonaje(PersonajeDTO personajeDTO) {
 		logger.debug("Se ha iniciado el metodo CrearInfoPersonaje ");
 		Personaje personaje = convertirDTOEntidad(personajeDTO);
@@ -37,17 +39,19 @@ public class GestionarPersonajeBean implements GestionarPersonajeLocal{
 		logger.debug("Se ha finalizado el metodo CrearInfoPersonaje ");
 	}
 	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void modificarInfoPersonaje() {
 		logger.debug("Se ha iniciado el metodo ModificarInfoPersonaje ");
 		logger.debug("Se ha finalizado el metodo ModificarInfoPersonaje ");	
 	}
 	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void eliminarInfoPersonaje() {
 		logger.debug("Se ha iniciado el metodo EliminarInfoPersonaje ");
 		logger.debug("Se ha finalizado el metodo EliminarInfoPersonaje ");
 	}
 	
-	@SuppressWarnings("unused")
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public List<PersonajeDTO> consultarInfoPersonaje() {
 		logger.debug("Se ha iniciado el metodo ConsultarInfoPersonaje ");
 		String query = "SELECT personaje" 
@@ -66,6 +70,7 @@ public class GestionarPersonajeBean implements GestionarPersonajeLocal{
 	}
 	
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public List<PersonajeDTO> consultarInfoPersonaje(Long idComic) {
 		logger.debug("Se ha iniciado el metodo ConsultarInfoPersonaje ");
 		String query = "SELECT personaje" 
